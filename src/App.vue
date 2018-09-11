@@ -373,8 +373,14 @@ export default {
     filterableTagGroups (tagGroups) {
       const cancelFilter = { id: 'noSelection', name: '-- No Filter --', callback: () => { this.filteringTagGroup = undefined } }
       const tagGroupFilterControl = this.reportConfig.menuActions.customDropdowns.filter(control => control.id === 'tagGroupFilterControl').shift()
-      tagGroupFilterControl.entries = [...tagGroups.map(tagGroup => { return { ...tagGroup, callback: () => { this.filteringTagGroup = tagGroup.name } } }), cancelFilter]
-      tagGroupFilterControl.initialSelectionEntryId = 'noSelection'
+      const sortedTagGroups = Array.from([...tagGroups])
+        .sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0 })
+        .map(tagGroup => { return { ...tagGroup, callback: () => { this.filteringTagGroup = tagGroup.name } } })
+      tagGroupFilterControl.entries = [...sortedTagGroups, cancelFilter]
+      tagGroupFilterControl.initialSelectionEntryId = sortedTagGroups.length ? sortedTagGroups[0].id : 'noSelection'
+      if (sortedTagGroups.length) {
+        sortedTagGroups[0].callback()
+      }
       console.debug(`${Math.round(performance.now() - this.t0)}ms: updating report configuration with filtering tagGroups`)
       this.$lx.updateConfiguration(this.reportConfig)
     }
