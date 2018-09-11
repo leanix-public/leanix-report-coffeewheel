@@ -1,0 +1,26 @@
+{
+  "name": "Applications",
+  "children": [
+    {
+      "name": "Non UX-Advocate",
+      "size": 500
+    },
+    {
+      "name": "UX-Advocate",
+      "children": [
+        {
+          "name": "High",
+          "size": 100
+        },
+        {
+          "name": "Medium",
+          "size": 200
+        },
+        {
+          "name": "Low",
+          "size": 300
+        }
+      ]
+    }
+  ]
+}
