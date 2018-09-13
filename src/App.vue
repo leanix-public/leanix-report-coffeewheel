@@ -371,13 +371,15 @@ export default {
       this.fetchFactSheets()
     },
     filterableTagGroups (tagGroups) {
-      const cancelFilter = { id: 'noSelection', name: '-- No Filter --', callback: () => { this.filteringTagGroup = undefined } }
+      // const cancelFilter = { id: 'noSelection', name: '-- No Filter --', callback: () => { this.filteringTagGroup = undefined } }
       const tagGroupFilterControl = this.reportConfig.menuActions.customDropdowns.filter(control => control.id === 'tagGroupFilterControl').shift()
       const sortedTagGroups = Array.from([...tagGroups])
         .sort((a, b) => { return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0 })
         .map(tagGroup => { return { ...tagGroup, callback: () => { this.filteringTagGroup = tagGroup.name } } })
-      tagGroupFilterControl.entries = [...sortedTagGroups, cancelFilter]
-      tagGroupFilterControl.initialSelectionEntryId = sortedTagGroups.length ? sortedTagGroups[0].id : 'noSelection'
+      // tagGroupFilterControl.entries = [...sortedTagGroups, cancelFilter]
+      // tagGroupFilterControl.initialSelectionEntryId = sortedTagGroups.length ? sortedTagGroups[0].id : 'noSelection'
+      tagGroupFilterControl.entries = sortedTagGroups
+      tagGroupFilterControl.initialSelectionEntryId = sortedTagGroups.length ? sortedTagGroups[0].id : undefined
       if (sortedTagGroups.length) {
         sortedTagGroups[0].callback()
       }
