@@ -1,4 +1,4 @@
-# bosch-coffeewheel
+# coffeewheel
 
 > LeanIX custom report build with Vue.js.
 
